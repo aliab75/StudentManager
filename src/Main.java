@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+
+
 
 public class Main {
 
@@ -8,14 +11,23 @@ public class Main {
         students.add(new Student("Sara", 22, "ST002"));
         students.add(new Student("Reza", 23, "ST003"));
 
-        System.out.println("=== All Students ===");
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter student ID to search: ");
+        String searchId = input.nextLine();
+        searchStudentById(students, searchId);
+
+        System.out.print("Enter student ID to remove: ");
+        String removeId = input.nextLine();
+        removeStudentById(students, removeId);
+
+        System.out.println("=== Remaining Students ===");
         for (Student s : students) {
             s.printInfo();
             System.out.println("-----------");
         }
 
-        System.out.println("=== Search Result ===");
-        searchStudentById(students, "ST002");
+        input.close();
     }
 
     public static void searchStudentById(ArrayList<Student> students, String targetId) {
@@ -28,6 +40,22 @@ public class Main {
             }
         }
         if (!found) {
+            System.out.println("No student found with ID: " + targetId);
+        }
+    }
+
+    public static void removeStudentById(ArrayList<Student> students, String targetId) {
+        Student toRemove = null;
+        for (Student s : students) {
+            if (s.studentId.equals(targetId)) {
+                toRemove = s;
+                break;
+            }
+        }
+        if (toRemove != null) {
+            students.remove(toRemove);
+            System.out.println("Student with ID " + targetId + " removed.");
+        } else {
             System.out.println("No student found with ID: " + targetId);
         }
     }
