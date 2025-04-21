@@ -19,6 +19,50 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
 
+        System.out.println("=== Add New Student ===");
+        System.out.print("Enter name: ");
+        String name = input.nextLine();
+
+        System.out.print("Enter age: ");
+        int age = Integer.parseInt(input.nextLine());
+
+        System.out.print("Enter student ID: ");
+        String studentId = input.nextLine();
+
+        Student newStudent = new Student(name, age, studentId);
+        students.add(newStudent);
+
+        System.out.println("New student added successfully!");
+
+        System.out.print("How many courses to add for this student? ");
+        int courseCount = Integer.parseInt(input.nextLine());
+
+        for (int i = 1; i <= courseCount; i++) {
+            System.out.println("Course #" + i);
+            System.out.print("Enter course name: ");
+            String courseName = input.nextLine();
+
+            System.out.print("Enter course code: ");
+            String courseCode = input.nextLine();
+
+            Course course = new Course(courseName, courseCode);
+            boolean duplicate = false;
+            for (Course c : newStudent.courses) {
+                if (c.courseCode.equals(courseCode)) {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (duplicate) {
+                System.out.println("This course code already exists for this student. Skipping...");
+                i--;
+                continue;
+            }
+
+            newStudent.addCourse(course);
+        }
+
         System.out.print("Enter student ID to search: ");
         String searchId = input.nextLine();
         searchStudentById(students, searchId);
@@ -27,7 +71,7 @@ public class Main {
         String removeId = input.nextLine();
         removeStudentById(students, removeId);
 
-        System.out.println("=== Remaining Students ===");
+        System.out.println("=== Updated Student List ===");
         for (Student s : students) {
             s.printInfo();
             System.out.println("-----------");
