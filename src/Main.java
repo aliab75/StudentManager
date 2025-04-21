@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 public class Main {
 
     public static void main(String[] args) {
@@ -10,6 +8,14 @@ public class Main {
         students.add(new Student("Ali", 28, "ST001"));
         students.add(new Student("Sara", 22, "ST002"));
         students.add(new Student("Reza", 23, "ST003"));
+
+        Course math = new Course("Mathematics", "MATH101");
+        Course java = new Course("Java Programming", "CS201");
+
+        students.get(0).addCourse(math);
+        students.get(0).addCourse(java);
+        students.get(1).addCourse(math);
+        students.get(2).addCourse(java);
 
         Scanner input = new Scanner(System.in);
 
